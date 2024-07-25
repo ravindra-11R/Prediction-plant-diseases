@@ -4,7 +4,7 @@ import numpy as np
 import tensorflow as tf
 
 # Load the pre-trained model
-model_path = r'C:\Users\rabid\plant_disease_classifier\best_model_complete.h5'  # Ensure this path is correct
+model_path = 'best_model_complete.h5'  # Ensure this path is correct(r'C:\Users\rabid\plant_disease_classifier\)
 model = tf.keras.models.load_model(model_path)
 
 # Class labels
