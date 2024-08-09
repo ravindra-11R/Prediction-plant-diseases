@@ -1,11 +1,20 @@
+import gdown
 import streamlit as st
 from PIL import Image
 import numpy as np
 import tensorflow as tf
 
-# Load the pre-trained model
-model_path = 'best_model_complete.h5'  # Ensure this path is correct(r'C:\Users\rabid\plant_disease_classifier\)
-model = tf.keras.models.load_model(model_path)
+# Google Drive file ID
+file_id = '1sZA79FXoZ12YnUoB7VGXI49-wMWPtCY6'
+
+# Destination where the model will be saved
+output = 'best_custom_model.h5'
+
+# Google Drive URL for download
+gdown.download(f'https://drive.google.com/uc?id={file_id}', output, quiet=False)
+
+# Load the model
+model = tf.keras.models.load_model(output)
 
 # Class labels
 labels = ['Healthy', 'Powdery', 'Rust']
