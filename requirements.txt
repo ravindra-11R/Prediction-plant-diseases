@@ -1,5 +1,5 @@
-numpy==1.23.5
-Pillow==10.4.0
-streamlit==1.36.0
-tensorflow==2.17.0
-h5py
+tensorflow
+streamlit
+gdown
+pillow  # For image handling
+numpy
