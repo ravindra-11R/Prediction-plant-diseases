@@ -1,18 +1,34 @@
-import gdown
 import streamlit as st
 from PIL import Image
 import numpy as np
 import tensorflow as tf
+import gdown
+import os
 
-# Google Drive URL for direct download
-url = 'https://drive.google.com/uc?export=download&id=1sZA79FXoZ12YnUoB7VGXI49-wMWPtCY6'
+# Google Drive file ID
+file_id = '1sZA79FXoZ12YnUoB7VGXI49-wMWPtCY6'
 output = 'best_custom_model.h5'
 
-# Download the model
-gdown.download(url, output, quiet=False)
+# Function to download the model
+def download_model():
+    try:
+        gdown.download(f'https://drive.google.com/uc?id={file_id}', output, quiet=False)
+        if not os.path.exists(output):
+            st.error("Model file not found after download.")
+        else:
+            st.success("Model file downloaded successfully.")
+    except Exception as e:
+        st.error(f"Error downloading the model: {e}")
+
+# Download model
+download_model()
 
 # Load the model
-model = tf.keras.models.load_model(output)
+try:
+    model = tf.keras.models.load_model(output)
+except Exception as e:
+    st.error(f"Error loading the model: {e}")
+    model = None
 
 # Class labels
 labels = ['Healthy', 'Powdery', 'Rust']
@@ -23,7 +39,7 @@ st.title('Plant Disease Classification')
 # File uploader
 uploaded_file = st.file_uploader('Choose an image...', type=['jpg', 'jpeg', 'png'])
 
-if uploaded_file is not None:
+if uploaded_file is not None and model:
     # Open and display the uploaded image
     image = Image.open(uploaded_file)
     st.image(image, caption='Uploaded Image', use_column_width=True)
@@ -43,8 +59,8 @@ if uploaded_file is not None:
 
     st.write(f'Predicted Class: {preds_label}')
     st.write(f'Confidence Score: {confidence:.2f}')
-
-
+else:
+    st.warning("Model not loaded or no file uploaded.")
 
 
 
