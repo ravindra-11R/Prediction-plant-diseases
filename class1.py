@@ -1,36 +1,18 @@
-import os
 import gdown
 import streamlit as st
 from PIL import Image
 import numpy as np
 import tensorflow as tf
 
-# Google Drive file ID
-file_id = '1sZA79FXoZ12YnUoB7VGXI49-wMWPtCY6'
-
-# Destination where the model will be saved
+# Google Drive URL for direct download
+url = 'https://drive.google.com/uc?export=download&id=1sZA79FXoZ12YnUoB7VGXI49-wMWPtCY6'
 output = 'best_custom_model.h5'
 
-# Check if the model file already exists
-if not os.path.exists(output):
-    # Try to download the model
-    try:
-        st.write("Downloading the model...")
-        gdown.download(f'https://drive.google.com/uc?export=download&id=1sZA79FXoZ12YnUoB7VGXI49-wMWPtCY6', output, quiet=False)
-        st.write("Model downloaded successfully.")
-    except Exception as e:
-        st.write("Failed to download the model.")
-        st.write(str(e))
-else:
-    st.write("Model already exists. Skipping download.")
+# Download the model
+gdown.download(url, output, quiet=False)
 
 # Load the model
-try:
-    model = tf.keras.models.load_model(output)
-    st.write("Model loaded successfully.")
-except Exception as e:
-    st.write("Failed to load the model.")
-    st.write(str(e))
+model = tf.keras.models.load_model(output)
 
 # Class labels
 labels = ['Healthy', 'Powdery', 'Rust']
@@ -61,6 +43,7 @@ if uploaded_file is not None:
 
     st.write(f'Predicted Class: {preds_label}')
     st.write(f'Confidence Score: {confidence:.2f}')
+
 
 
 
