@@ -1,3 +1,4 @@
+import os
 import gdown
 import streamlit as st
 from PIL import Image
@@ -10,11 +11,26 @@ file_id = '1sZA79FXoZ12YnUoB7VGXI49-wMWPtCY6'
 # Destination where the model will be saved
 output = 'best_custom_model.h5'
 
-# Google Drive URL for download
-gdown.download(f'https://drive.google.com/uc?id={file_id}', output, quiet=False)
+# Check if the model file already exists
+if not os.path.exists(output):
+    # Try to download the model
+    try:
+        st.write("Downloading the model...")
+        gdown.download(f'https://drive.google.com/uc?id={file_id}', output, quiet=False)
+        st.write("Model downloaded successfully.")
+    except Exception as e:
+        st.write("Failed to download the model.")
+        st.write(str(e))
+else:
+    st.write("Model already exists. Skipping download.")
 
 # Load the model
-model = tf.keras.models.load_model(output)
+try:
+    model = tf.keras.models.load_model(output)
+    st.write("Model loaded successfully.")
+except Exception as e:
+    st.write("Failed to load the model.")
+    st.write(str(e))
 
 # Class labels
 labels = ['Healthy', 'Powdery', 'Rust']
