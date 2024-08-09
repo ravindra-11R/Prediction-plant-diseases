@@ -16,7 +16,7 @@ if not os.path.exists(output):
     # Try to download the model
     try:
         st.write("Downloading the model...")
-        gdown.download(f'https://drive.google.com/uc?id={file_id}', output, quiet=False)
+        gdown.download(f'https://drive.google.com/uc?export=download&id=1sZA79FXoZ12YnUoB7VGXI49-wMWPtCY6', output, quiet=False)
         st.write("Model downloaded successfully.")
     except Exception as e:
         st.write("Failed to download the model.")
