@@ -7,7 +7,7 @@ import os
 
 # Google Drive file ID
 file_id = '1sZA79FXoZ12YnUoB7VGXI49-wMWPtCY6'
-output = 'best_custom_model.h5'
+output = 'best_model.h5'
 
 # Function to download the model
 def download_model():
