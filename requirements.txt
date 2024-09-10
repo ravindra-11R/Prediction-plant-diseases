@@ -3,3 +3,4 @@ streamlit
 gdown
 pillow  # For image handling
 numpy
+pandas
