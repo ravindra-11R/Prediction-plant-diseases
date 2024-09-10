@@ -12,9 +12,8 @@ output = 'best_model.h5'
 # Function to download the model
 def download_model():
     try:
-        gdown.download(
-            "https://drive.google.com/uc?export=download&id="
-            "1sZA79FXoZ12YnUoB7VGXI49-wMWPtCY6"
+        wget --no-check-certificate "https://drive.google.com/uc?export=download&id=1sZA79FXoZ12YnUoB7VGXI49-wMWPtCY6"
+
 , output, quiet=False)
         if not os.path.exists(output):
             st.error("Model file not found after download.")
